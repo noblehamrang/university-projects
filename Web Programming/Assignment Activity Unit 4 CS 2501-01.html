@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8" /> <!--Imports character set-->
+ 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!--Adjusts the web page depending on the display to ensure compatibility across many displays-->
+ 	<title>Temperature Converter</title>
+
+	<style> <!--Defines the formatting the web page will follow-->
+		body {
+			font-family: Times New Roman, serif;
+			justify-content: center;
+			margin-top: 10px;
+		}
+
+		.converter {
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			padding: 20px;
+			max-width: 300px;
+			text-align: center;
+			box-shadow: 0 0 10px #eee;
+		}
+
+		select, input, button {
+			width: 95%;
+			padding: 10px;
+			margin: 10px 0;
+		}
+
+		.output {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+
+
+<body>
+	<div class = "converter">
+		<h2>Temperature Converter</h2>
+		<input type="text" id="tempNum" placeholder="Enter a temperature" /> <!--Creates interactable textbox for the user to input a temperature value-->
+		<select id="conversionType"> <!--Drop down menu to select between Fahrenheit and Celsius conversion-->
+			<option value="CtoF">Celsius to Fahrenheit</option>
+			<option value="FtoC">Fahrenheit to Celsius</option>
+		</select>
+
+		<button onclick="convertTemp()">Convert</button> <!--Event handler for the user to run the conversion calculation function convertTemp()-->
+		<div id="result" class="output"></div>
+	</div>
+
+	<script>
+		function convertTemp() { <!--This function handles the temperature conversion and executes when the user clicks the Convert button-->
+			const temp = document.getElementById("tempNum").value;
+			const type = document.getElementById("conversionType").value;
+			const resultDiv = document.getElementById("result");
+
+			if (isNaN(temp) || temp === "") { <!--Error handling for if the user inputs anything other than a number-->
+				resultDiv.style.color = "red";
+				resultDiv.textContent = "Please enter a valid temperature number.";
+				return;
+			}
+
+			const tempValue = parseFloat(temp);
+			let result;
+
+			if (type === "CtoF") { <!--Checks to see if the value is being converted from Celsius to Fahrenheit and vice versa-->
+				result = (9 / 5)*tempValue + 32;
+				resultDiv.textContent = `${tempValue} °C is ${result.toFixed(2)} °F`;
+			} 
+				else {
+					result = (5 / 9)*(tempValue - 32);
+					resultDiv.textContent = `${tempValue} °F is ${result.toFixed(2)} °C`;
+				}
+		}
+	</script>
+
+</body>
+
+</html>
